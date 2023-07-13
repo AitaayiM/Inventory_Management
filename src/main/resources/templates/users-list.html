@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:replace="~{body/header :: myHeader}"></div>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();    
+        });
+    </script>
+</head>
+<body class="sb-nav-fixed">
+    <h1>Liste des users</h1>
+    <div th:replace="~{body/navbar :: myNavbar}"></div>
+    <div id="layoutSidenav">
+    <div th:replace="~{body/sidebar :: mySidebar}"></div>
+    <div id="layoutSidenav_content">
+    <div class="container">
+        <table id="myTable" class="table table-bordered table-hover" >
+            <thead class="thead-dark">
+                <tr>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.fullName}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td>
+                        <a href="#" class="status-link" th:href="@{/user/users/{id}/toggleStatus(id=${user.id})}">
+                            <span th:text="${user.status ? 'Active' : 'Inactive'}"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" class="delete-link" th:href="@{/user/users/{id}/toggleDelete(id=${user.id})}">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="/js/redirect.js"></script>
+</body>
+</html>

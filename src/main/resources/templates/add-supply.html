@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<!--Custom styles-->
+		<style>
+			@import url("/css/login.css");
+			body.sb-nav-fixed {
+				overflow-x: hidden;
+			}
+		</style>
+    <div th:replace="~{body/header :: myHeader}"></div>
+</head>
+<body class="sb-nav-fixed">
+    <div th:replace="~{body/navbar :: myNavbar}"></div>
+    <div id="layoutSidenav">
+    <div th:replace="~{body/sidebar :: mySidebar}"></div>
+    <div id="layoutSidenav_content">
+    <div class="container">    
+    <div class="container">    
+        <h1 class="display-6 d-flex justify-content-center">Add supply</h1>
+        <hr class="border border-primary border-3 opacity-75">
+		<div class="d-flex justify-content-center h-100">
+			<div class="card">
+				<div class="card-header">
+					<h3>Add supply</h3>
+				</div>
+				<div class="card-body">
+        <div class="row">
+            <div class="col-md-8 mx-auto d-flex justify-content-center">
+                <form id="productForm" method="POST" th:action="@{/supply/upload}" enctype="multipart/form-data">
+                    <label for="productId">Product :</label>
+                    <select id="productId" name="productId" required>
+                        <option th:each="product : ${products}" th:value="${product.itemCode}" th:text="${product.itemName}"></option>
+                    </select><br>
+                
+                    <label for="quantityOrdered">Quantity :</label>
+                    <input type="number" id="quantityOrdered" name="quantityOrdered" required><br>
+                
+                    <label for="dateExpectedDelivery">Delivery Date :</label>
+                    <input type="text" id="dateExpectedDelivery" name="dateExpectedDelivery" class="datepicker" required><br>
+                
+                    <input type="submit" class="btn btn-primary" value="Add">
+                </form> 
+            </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center links">
+                        <span th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></span>
+                    </div>
+                    <div class="d-flex justify-content-center links">
+                        <span th:if="${msg != null}" th:text="${msg}" class="alert alert-primary"></span>
+                    </div>   
+                </div>                            
+            </div>
+        </div>
+	</div>
+</div>
+</div>
+</body>
+</html>

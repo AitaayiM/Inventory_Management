@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        
+        <div th:replace="~{body/header :: myHeader}"></div>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#myTable').DataTable();    
+            });
+        </script>
+    </head>
+<body class="sb-nav-fixed">
+    <h1>Liste des items de stock</h1>
+    <div th:replace="~{body/navbar :: myNavbar}"></div>
+    <div id="layoutSidenav">
+    <div th:replace="~{body/sidebar :: mySidebar}"></div>
+    <div id="layoutSidenav_content">
+    <div class="container">
+    <table id="myTable" class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        <tr th:each="item : ${items}">
+            <td th:text="${item.itemCode}"></td>
+            <td th:text="${item.itemName}"></td>
+            <td th:text="${item.itemQuantity}"></td>
+            <td th:text="${item.itemDescription}"></td>
+            <td th:text="${item.itemPrice}"></td>
+            <td>
+                <img th:if="${item.imageUrl}" th:src="@{${item.imageUrl}}" class="rounded mx-auto d-block" width="100" height="100" alt="Image du produit">
+            </td>
+            <td>
+                <a href="#" class="delete-link" th:href="@{/product/items/{id}/toggleDelete(id=${item.itemCode})}">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

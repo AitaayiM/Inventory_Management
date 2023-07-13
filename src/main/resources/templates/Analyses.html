@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{body/header :: myHeader}"></div>
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
+</head>
+<body class="sb-nav-fixed">
+    <h1>Liste des items de stock</h1>
+    <div th:replace="~{body/navbar :: myNavbar}"></div>
+    <div id="layoutSidenav">
+    <div th:replace="~{body/sidebar :: mySidebar}"></div>
+    <div id="layoutSidenav_content">
+    <div class="container">
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+
+    <script th:inline="javascript">
+        var dataPoints = /*[[${dataPoints}]]*/ [];
+        var chartOptions = {
+            title: {
+                text: /*[[${chartTitle}]]*/ ""
+            },
+            subtitles: [{
+                text: /*[[${chartSubtitle}]]*/ ""
+            }],
+            animationEnabled: true,
+            data: [{
+                type: "pie",
+                startAngle: 40,
+                toolTipContent: "<b>{label}</b>: {y}%",
+                showInLegend: "true",
+                legendText: "{label}",
+                indexLabelFontSize: 16,
+                indexLabel: "{label} - {y}%",
+                dataPoints: dataPoints
+            }]
+        };
+
+        $(document).ready(function () {
+            $("#chartContainer").CanvasJSChart(chartOptions);
+        });
+    </script>
+</div>
+</body>
+</html>
